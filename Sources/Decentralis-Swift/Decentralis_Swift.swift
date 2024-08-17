@@ -6,8 +6,8 @@ import hsauth_swift
 import Foundation
 import WebsocketClient
 
-/// Lightcom client object
-public class LightcomClient {
+/// Decentralis client object
+public class DecentralisClient {
     private var requester: Requester
     /// Server URL
     private(set) public var serverUrl: String
@@ -23,8 +23,8 @@ public class LightcomClient {
     
     /// Initializes new client object and registers a new account
     ///
-    /// - Parameter serverUrl: URL address to the lightcom server
-    /// - Returns: `LightcomClient` object instance
+    /// - Parameter serverUrl: URL address to the decentralis server
+    /// - Returns: `DecentralisClient` object instance
     public init(serverUrl: String) async throws {
         self.serverUrl = (
             serverUrl.hasPrefix("http://") ||
@@ -51,11 +51,11 @@ public class LightcomClient {
     /// Initializes new client object for an existing account, creates a new access token
     ///
     /// - Parameters:
-    ///   - serverUrl: URL address to the lightcom server
+    ///   - serverUrl: URL address to the decentralis server
     ///   - userId: User's ID
     ///   - privateKeyEncoded: User's private key encoded in hex
     ///
-    /// - Returns: `LightcomClient` object instance
+    /// - Returns: `DecentralisClient` object instance
     public init(serverUrl: String, userId: String, privateKeyEncoded: String) async throws {
         self.serverUrl = (
             serverUrl.hasPrefix("http://") ||
@@ -72,12 +72,12 @@ public class LightcomClient {
     /// Initializes new client object for an existing account, uses an existing access token
     ///
     /// - Parameters:
-    ///   - serverUrl: URL address to the lightcom server
+    ///   - serverUrl: URL address to the decentralis server
     ///   - userId: User's ID
     ///   - privateKeyEncoded: User's private key encoded in hex
     ///   - accessToken: accessToken
     ///
-    /// - Returns: `LightcomClient` object instance
+    /// - Returns: `DecentralisClient` object instance
     public init(serverUrl: String, userId: String, privateKeyEncoded: String, accessToken: String) throws {
         self.serverUrl = (
             serverUrl.hasPrefix("http://") ||
@@ -159,7 +159,7 @@ public class LightcomClient {
     ///   - message: encrypted message presented as `Response.Message`
     public func sendMessage(forUser destination: String, message: Responses.Message) async throws {
         if message.fromUser != self.userId {
-            throw LightcomErrors.InvalidMessage
+            throw DecentralisErrors.InvalidMessage
         }
         
         _ = try await self.requester.parseAndRequest(endpoint: "/send", method: "PUT", body: message)
@@ -178,7 +178,7 @@ public class LightcomClient {
         try await self.sendMessage(forUser: destination, message: encryptedMessage)
     }
     
-    public enum LightcomErrors: Error, LocalizedError {
+    public enum DecentralisErrors: Error, LocalizedError {
         case InvalidMessage
         
         public var errorDescription: String? {

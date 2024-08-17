@@ -1,10 +1,10 @@
 import XCTest
-@testable import Lightcom_Swift
+@testable import Decentralis_Swift
 
-final class Lightcom_SwiftTests: XCTestCase {
+final class Decentralis_SwiftTests: XCTestCase {
     func testExample() async throws {
-        let client1 = try await LightcomClient(serverUrl: "http://localhost:8080")
-        let client2 = try await LightcomClient(serverUrl: "http://localhost:8080")
+        let client1 = try await DecentralisClient(serverUrl: "http://localhost:8080")
+        let client2 = try await DecentralisClient(serverUrl: "http://localhost:8080")
         
         try await client1.sendMessageAndEncrypt(
             forUser: client2.userId,

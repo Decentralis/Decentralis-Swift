@@ -24,7 +24,7 @@ public class Message: Codable {
         self.mediaUrls = mediaUrls
     }
     
-    /// Decrypts message obtained from the lightcom server
+    /// Decrypts message obtained from the decentralis server
     ///
     /// - Parameters:
     ///   - encryptedMessage: message from the server
